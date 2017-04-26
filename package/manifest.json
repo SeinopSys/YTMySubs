@@ -1,6 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Replace YouTube's Home with Subscriptions",
+	"short_name": "YTMySubs",
 	"description": "Sets the \"Subscriptions\" page as your default homepage on YouTube by redirecting all requests at the browser level",
 	"version": "1.0.0",
 	"icons": {

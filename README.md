@@ -1,4 +1,5 @@
-# Replace YouTube's Home with Subscriptions
+<p align="center"><img src="https://github.com/SeinopSys/ytmysubs-chrome/raw/master/screenshot.png"></p>
+<h1 align="center">Replace YouTube's Home with Subscriptions</h1>
 
 This small extension is meant to fix the missing setting that would allow avid users to go directly to the Subscriptions section of the YouTube website when clikcing the logo. Great for anyone who wants to avoid the Home page by all means.
 
