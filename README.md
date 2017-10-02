@@ -3,7 +3,7 @@
 
 Sets the [Subscriptions](https://www.youtube.com/feed/subscriptions) page as your default homepage on YouTube by redirecting all requests at the browser level
 
-<p align="center"><a href="https://chrome.google.com/webstore/detail/replace-youtubes-home-wit/nfffnooajndeeejgejfkbphjocpkblog"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png" alt="Download YTMySubs from the Chrome Web Store"></a></p>
+<p align="center"><a href="https://chrome.google.com/webstore/detail/replace-youtubes-home-wit/nfffnooajndeeejgejfkbphjocpkblog"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png" alt="Download YTMySubs from the Chrome Web Store"></a> <a href="https://addons.mozilla.org/en-US/firefox/addon/ytmysubs/"><img src="https://cdn.rawgit.com/alrra/browser-logos/da2477b1/src/firefox/firefox.svg" height="96" alt="Download YTMySubs from Firefox Add-ons"></a></p>
 
 ## About
 
