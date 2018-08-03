@@ -1,4 +1,4 @@
-var test = /^(https:\/\/www\.youtube\.com)\/?(\?.+?)?(#.+?)?$/;
+var test = /^(https:\/\/(?:www|m)\.youtube\.com)\/?(\?.+?)?(#.+?)?$/;
 chrome.webRequest.onBeforeRequest.addListener(
 	function(details){
 		if (details.method !== 'GET')
