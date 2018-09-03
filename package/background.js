@@ -8,6 +8,6 @@ chrome.webRequest.onBeforeRequest.addListener(
 		if (match !== null)
 			return {redirectUrl: match[1]+'/feed/subscriptions'+(match[2]||'')+(match[3]||'')};
 	},
-	{urls: ['https://www.youtube.com/*']},
+	{urls: ['https://www.youtube.com/*','https://m.youtube.com/*']},
 	["blocking"]
 );
