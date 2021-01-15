@@ -3,7 +3,7 @@
 
 Sets the [Subscriptions](https://www.youtube.com/feed/subscriptions) page as your default homepage on YouTube by redirecting all requests at the browser level
 
-<p align="center"><a href="https://chrome.google.com/webstore/detail/replace-youtubes-home-wit/nfffnooajndeeejgejfkbphjocpkblog"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_340x96.png" height="60" alt="Download YTMySubs from the Chrome Web Store"></a> <a href="https://addons.mozilla.org/en-US/firefox/addon/ytmysubs/"><img src="https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png" height="60" alt="Download YTMySubs from Firefox Add-ons"></a></p>
+<p align="center"><a href="https://chrome.google.com/webstore/detail/replace-youtubes-home-wit/nfffnooajndeeejgejfkbphjocpkblog"><img src="https://storage.googleapis.com/chrome-gcs-uploader.appspot.com/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/iNEddTyWiMfLSwFD6qGq.png" height="60" alt="Download YTMySubs from the Chrome Web Store"></a> <a href="https://addons.mozilla.org/en-US/firefox/addon/ytmysubs/"><img src="https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png" height="60" alt="Download YTMySubs from Firefox Add-ons"></a></p>
 
 <p align="center"><img alt="Download YTMySubs from the Chrome Web Store" src="https://img.shields.io/chrome-web-store/v/nfffnooajndeeejgejfkbphjocpkblog"> <img alt="Download YTMySubs from Firefox Add-ons" src="https://img.shields.io/amo/v/ytmysubs"></p>
 
