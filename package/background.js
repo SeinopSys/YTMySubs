@@ -18,6 +18,18 @@ const matchGetUrl = url => {
   };
 };
 
+const browseId = 'FEwhat_to_watch';
+const isObjectKey = (src, key) => key in src && typeof src[key] === 'object' && src[key] !== null;
+const isArrayKey = (src, key) => key in src && Array.isArray(src[key]);
+const isOldHomePageNavigation = (requestBody) => 'browseId' in requestBody && requestBody.browseId === browseId;
+const isNewHomePageNavigation = (requestBody) => {
+  return isObjectKey(requestBody, 'contents')
+    && isObjectKey(requestBody.contents, 'twoColumnBrowseResultsRenderer')
+    && isArrayKey(requestBody.contents.twoColumnBrowseResultsRenderer, 'tabs')
+    && isObjectKey(requestBody.contents.twoColumnBrowseResultsRenderer.tabs, 0)
+    && requestBody.contents.twoColumnBrowseResultsRenderer.tabs[0].tabIdentifier === browseId;
+};
+
 const matchPostUrl = url => {
   const match = url.match(spaApiTest);
   if (match === null){
@@ -33,7 +45,7 @@ const matchPostUrl = url => {
   }
 
   // Cancel any requests that contain the home page browseId
-  if ('browseId' in requestBody && requestBody.browseId === 'FEwhat_to_watch')
+  if (isOldHomePageNavigation(requestBody) || isNewHomePageNavigation(requestBody))
     // By cancelling this request the frontend will update the URL but locks up,
     // a full page reload is needed afterwards using tabs API
     return { cancel: true };
