@@ -1,0 +1,10 @@
+{
+  "name": "@seinopsys/ytmysubs",
+  "version": "1.0.0",
+  "description": "Replace YouTube's Home with Subscriptions",
+  "author": "SeinopSys <david@seinopsys.dev> (https://seinopsys.dev)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/firefox-webext-browser": "^120.0.0"
+  }
+}

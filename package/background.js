@@ -1,5 +1,6 @@
 import { arrayBufferToData } from './array-buffer-to-data.js';
 
+const ext = typeof browser !== 'undefined' ? browser : chrome;
 const directNavTest = /^(https:\/\/(?:www|m)\.youtube\.com)\/?(\?.+?)?(#.+?)?$/;
 const spaApiTest = /\/youtubei\/v1\/browse/;
 
@@ -30,7 +31,8 @@ const isNewHomePageNavigation = (requestBody) => {
     && requestBody.contents.twoColumnBrowseResultsRenderer.tabs[0].tabIdentifier === browseId;
 };
 
-const matchPostUrl = url => {
+const matchPostUrl = (details) => {
+  const { url } = details;
   const match = url.match(spaApiTest);
   if (match === null){
     return;
@@ -52,7 +54,7 @@ const matchPostUrl = url => {
 };
 
 // Blocking webRequets to capture navigation attempts
-chrome.webRequest.onBeforeRequest.addListener(
+ext.webRequest.onBeforeRequest.addListener(
   details => {
     let returnValue;
     switch (details.method){
@@ -62,7 +64,7 @@ chrome.webRequest.onBeforeRequest.addListener(
         break;
       case 'POST':
         // Partial data fetch via API (internal links)
-        returnValue = matchPostUrl(details.url);
+        returnValue = matchPostUrl(details);
         break;
     }
     if (returnValue) return returnValue;
@@ -72,7 +74,7 @@ chrome.webRequest.onBeforeRequest.addListener(
 );
 
 // Tab update listener
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+ext.tabs.onUpdated.addListener((tabId, changeInfo) => {
   if (!changeInfo.url){
     return;
   }
@@ -80,6 +82,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
   // If tab URL changed to home page replace it with subscriptions
   const returnValue = matchGetUrl(changeInfo.url);
   if (returnValue && returnValue.redirectUrl){
-    chrome.tabs.update(tabId, { url: returnValue.redirectUrl });
+    ext.tabs.sendMessage(tabId, { redirectToSubscriptions: true }).then(response => {
+      // Check if redirect was handled by content script
+      if (response === true) return;
+
+      ext.tabs.update(tabId, { url: returnValue.redirectUrl });
+    });
   }
 });
