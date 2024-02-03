@@ -1,12 +1,11 @@
-import { arrayBufferToData } from './array-buffer-to-data.js';
-
-const ext = typeof browser !== 'undefined' ? browser : chrome;
+const isFirefox = typeof browser !== 'undefined';
+const ext = isFirefox ? browser : chrome;
 const directNavTest = /^(https:\/\/(?:www|m)\.youtube\.com)\/?(\?.+?)?(#.+?)?$/;
 const spaApiTest = /\/youtubei\/v1\/browse/;
 
 const matchGetUrl = url => {
   const match = url.match(directNavTest);
-  if (match === null){
+  if (match === null) {
     return;
   }
 
@@ -31,43 +30,13 @@ const isNewHomePageNavigation = (requestBody) => {
     && requestBody.contents.twoColumnBrowseResultsRenderer.tabs[0].tabIdentifier === browseId;
 };
 
-const matchPostUrl = (details) => {
-  const { url } = details;
-  const match = url.match(spaApiTest);
-  if (match === null){
-    return;
-  }
-
-  let requestBody = {};
-  try {
-    // Try to decode request body
-    requestBody = arrayBufferToData.toJSON(details.requestBody.raw[0].bytes) || {};
-  } catch (e){
-    // Ignore error
-  }
-
-  // Cancel any requests that contain the home page browseId
-  if (isOldHomePageNavigation(requestBody) || isNewHomePageNavigation(requestBody))
-    // By cancelling this request the frontend will update the URL but locks up,
-    // a full page reload is needed afterwards using tabs API
-    return { cancel: true };
-};
-
 // Blocking webRequets to capture navigation attempts
 ext.webRequest.onBeforeRequest.addListener(
   details => {
-    let returnValue;
-    switch (details.method){
-      case 'GET':
-        // Direct navigation (e.g. address bar, external link click)
-        returnValue = matchGetUrl(details.url);
-        break;
-      case 'POST':
-        // Partial data fetch via API (internal links)
-        returnValue = matchPostUrl(details);
-        break;
+    if (details.method === 'GET') {
+      const returnValue = matchGetUrl(details.url);
+      if (returnValue) return returnValue;
     }
-    if (returnValue) return returnValue;
   },
   { urls: ['https://www.youtube.com/*', 'https://m.youtube.com/*'] },
   ['blocking', 'requestBody'],
@@ -75,13 +44,18 @@ ext.webRequest.onBeforeRequest.addListener(
 
 // Tab update listener
 ext.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (!changeInfo.url){
+  if (!changeInfo.url) {
     return;
   }
 
   // If tab URL changed to home page replace it with subscriptions
   const returnValue = matchGetUrl(changeInfo.url);
-  if (returnValue && returnValue.redirectUrl){
-    ext.tabs.update(tabId, { url: returnValue.redirectUrl });
+  if (returnValue && returnValue.redirectUrl) {
+    const updateOptions = { url: returnValue.redirectUrl };
+    if (isFirefox) {
+      // Only supported in Firefox
+      updateOptions.loadReplace = true;
+    }
+    ext.tabs.update(tabId, updateOptions);
   }
 });
