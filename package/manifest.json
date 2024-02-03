@@ -3,7 +3,7 @@
   "name": "Replace YouTube's Home with Subscriptions",
   "short_name": "YTMySubs",
   "description": "Sets the \"Subscriptions\" page as your default homepage on YouTube by redirecting all requests at the browser level",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "icons": {
     "16": "icons/16.png",
     "32": "icons/32.png",
@@ -20,18 +20,5 @@
   ],
   "background": {
     "page": "background.html"
-  },
-  "web_accessible_resources": [
-    "icons/appicon.svg"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "https://*.youtube.com/*"
-      ],
-      "js": [
-        "content.js"
-      ]
-    }
-  ]
+  }
 }

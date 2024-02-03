@@ -82,11 +82,6 @@ ext.tabs.onUpdated.addListener((tabId, changeInfo) => {
   // If tab URL changed to home page replace it with subscriptions
   const returnValue = matchGetUrl(changeInfo.url);
   if (returnValue && returnValue.redirectUrl){
-    ext.tabs.sendMessage(tabId, { redirectToSubscriptions: true }).then(response => {
-      // Check if redirect was handled by content script
-      if (response === true) return;
-
-      ext.tabs.update(tabId, { url: returnValue.redirectUrl });
-    });
+    ext.tabs.update(tabId, { url: returnValue.redirectUrl });
   }
 });
